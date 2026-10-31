@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Spear, Don't Chop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Three animated tips for stabbing the ring in ringette: spear low, put your tip where the ring is going, and use soft hands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+  /* Layout: one narrow reading column; each lesson = cue text + a pair of to-scale animations (good vs bad) side by side, stacked on phones. */
+  :root {
+    --bg: #f3f6f9;
+    --surface: #ffffff;
+    --canvas: #e8f0f7;
+    --ink: #16202b;
+    --muted: #5a6777;
+    --rule: #d3dce6;
+    --ring: #1f5fbf;
+    --ring-soft: #c2d3ee;
+    --stick: #1c232c;
+    --good: #12804a;
+    --bad: #c03a2f;
+    --line-red: #c8463b;
+    --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e141d; --surface: #162030; --canvas: #121c2a; --ink: #e5ecf4; --muted: #95a3b6;
+      --rule: #29364a; --ring: #5a95f2; --ring-soft: #2c4166; --stick: #dfe6ee; --good: #3cc37c;
+      --bad: #f2695c; --line-red: #e0645a; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e141d; --surface: #162030; --canvas: #121c2a; --ink: #e5ecf4; --muted: #95a3b6;
+    --rule: #29364a; --ring: #5a95f2; --ring-soft: #2c4166; --stick: #dfe6ee; --good: #3cc37c;
+    --bad: #f2695c; --line-red: #e0645a; color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding-block: 28px 56px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid;
+    gap: 44px;
+  }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+  p { margin: 0; max-width: 62ch; }
+
+  /* Hero */
+  .hero { display: grid; gap: 14px; }
+  .eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+  h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); line-height: 0.95; text-transform: uppercase; }
+  h1 .no { color: var(--bad); }
+  .rink-lines { display: flex; gap: 6px; }
+  .rink-lines span { height: 5px; width: 54px; border-radius: 3px; background: var(--ring); }
+  .rink-lines span + span { background: var(--line-red); }
+  .lead { font-size: 1.15rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  button {
+    font: 600 0.95rem/1 var(--font-body);
+    color: var(--ink);
+    background: var(--surface);
+    border: 1.5px solid var(--rule);
+    border-radius: 999px;
+    padding: 9px 16px;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--ring); }
+  button:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--ring); border-color: var(--ring); color: var(--surface); }
+
+  /* Room-for-error fact */
+  .fact {
+    display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 20px; align-items: center;
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px;
+  }
+  .fact svg { width: 100%; max-width: 170px; height: auto; }
+  .fact h2 { font-size: 1.5rem; text-transform: uppercase; }
+  .fact .num { font-family: var(--font-display); font-weight: 700; color: var(--ring); font-variant-numeric: tabular-nums; }
+  .fact-text { display: grid; gap: 6px; min-width: 0; }
+
+  /* Lessons */
+  .lesson { display: grid; gap: 14px; }
+  .lesson-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px; }
+  .lesson-head > div { display: grid; gap: 4px; min-width: 0; }
+  .step { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ring); }
+  h2 { font-size: clamp(1.9rem, 5.5vw, 2.5rem); line-height: 1; text-transform: uppercase; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+  figcaption { display: flex; gap: 8px; align-items: baseline; font-size: 0.95rem; color: var(--muted); }
+  .tag { font: 700 0.85rem/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 8px; border-radius: 6px; color: var(--surface); flex: none; }
+  .tag.good { background: var(--good); }
+  .tag.bad { background: var(--bad); }
+  canvas { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; height: auto; border-radius: 12px; background: var(--canvas); display: block; cursor: pointer; }
+  .cue { font-weight: 600; }
+
+  /* Checklists */
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .box { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .box h3 { font-size: 1.35rem; text-transform: uppercase; }
+  .box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+  .note { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+
+  @media (max-width: 640px) {
+    .pair, .two { grid-template-columns: minmax(0, 1fr); }
+    .fact { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+    .fact svg { max-width: 150px; }
+  }
+</style>
+
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div class="eyebrow">Ringette · stabbing the ring</div>
+    <h1>Spear, <span class="no">don't chop.</span></h1>
+    <div class="rink-lines" aria-hidden="true"><span></span><span></span></div>
+    <p class="lead">When a pass is coming, get your stick tip low and early in the ring's path and let the ring come to you. Three short animations show why. They're slowed down so you can see what happens, and the ring and stick are drawn to real size.</p>
+    <div class="controls">
+      <button id="slowmo" type="button" aria-pressed="false">Slow motion</button>
+    </div>
+  </header>
+
+  <section class="fact" aria-labelledby="fact-h">
+    <svg viewBox="0 0 200 200" role="img" aria-label="Top view of the ring with a stick tip in the hole, to scale">
+      <circle cx="100" cy="100" r="82.5" fill="var(--ring)"/>
+      <circle cx="100" cy="100" r="55" fill="var(--surface)"/>
+      <rect x="85" y="92.5" width="30" height="15" rx="2" fill="var(--stick)"/>
+      <line x1="47" y1="100" x2="83" y2="100" stroke="var(--good)" stroke-width="2.5" stroke-dasharray="3 3"/>
+      <line x1="117" y1="100" x2="153" y2="100" stroke="var(--good)" stroke-width="2.5" stroke-dasharray="3 3"/>
+    </svg>
+    <div class="fact-text">
+      <h2 id="fact-h">Your room for error</h2>
+      <p>The hole is about <span class="num">11 cm</span> across. Your stick tip is about <span class="num">3 cm</span> wide. That leaves roughly <span class="num">4 cm</span> on each side, shown by the green dashes. It's a small target, so it's easier to have your tip already waiting in the ring's path than to hit it at the last second.</p>
+    </div>
+  </section>
+
+  <section class="lesson" aria-labelledby="l1">
+    <div class="lesson-head">
+      <div>
+        <div class="step">Tip 1 · side view, cut in half</div>
+        <h2 id="l1">Spear it low</h2>
+      </div>
+      <button type="button" data-replay="0">Replay</button>
+    </div>
+    <p><span class="cue">Hold your tip just above the rim, then drop it in.</span> The rim is 2.5–2.9 cm high, so a stick flat on the ice just pushes the ring away. Chopping from above only works if you're perfectly on time; a little late and you hit the rim.</p>
+    <div class="pair">
+      <figure>
+        <figcaption><span class="tag good">Spear</span> tip waits just above the rim</figcaption>
+        <canvas width="800" height="600" data-scene="spear" aria-label="Animation: a low stick tip drops into the ring's hole as it slides by"></canvas>
+      </figure>
+      <figure>
+        <figcaption><span class="tag bad">Chop</span> tip has to arrive at the exact moment</figcaption>
+        <canvas width="800" height="600" data-scene="chop" aria-label="Animation: a stick chopping down from above hits the rim and the ring bounces away"></canvas>
+      </figure>
+    </div>
+  </section>
+
+  <section class="lesson" aria-labelledby="l2">
+    <div class="lesson-head">
+      <div>
+        <div class="step">Tip 2 · top view, pass across your body</div>
+        <h2 id="l2">Tip where it's going</h2>
+      </div>
+      <button type="button" data-replay="1">Replay</button>
+    </div>
+    <p><span class="cue">Put your tip ahead of the ring, on its line, and let it slide onto your stick.</span> If you reach for where the ring is right now, it's already gone by the time your stick gets there. Keep skating at the same speed.</p>
+    <div class="pair">
+      <figure>
+        <figcaption><span class="tag bad">Reach</span> aims at where the ring is now</figcaption>
+        <canvas width="800" height="600" data-scene="reach" aria-label="Animation: a player reaches toward the ring's current spot and misses behind it"></canvas>
+      </figure>
+      <figure>
+        <figcaption><span class="tag good">Ahead</span> aims at where the ring is going</figcaption>
+        <canvas width="800" height="600" data-scene="ahead" aria-label="Animation: a player places the stick tip ahead on the ring's path and the ring slides onto it"></canvas>
+      </figure>
+    </div>
+  </section>
+
+  <section class="lesson" aria-labelledby="l3">
+    <div class="lesson-head">
+      <div>
+        <div class="step">Tip 3 · side view, cut in half</div>
+        <h2 id="l3">Soft hands</h2>
+      </div>
+      <button type="button" data-replay="2">Replay</button>
+    </div>
+    <p><span class="cue">Let your stick give a little when the ring hits it.</span> Stopping the ring takes the same push either way. Stiff hands do it all at once, so the ring bounces off. Soft hands spread it out, so it stays on.</p>
+    <div class="pair">
+      <figure>
+        <figcaption><span class="tag bad">Stiff</span> stick doesn't move</figcaption>
+        <canvas width="800" height="600" data-scene="stiff" aria-label="Animation: the ring hits a stiff stick and bounces off; the force graph shows a short, tall spike"></canvas>
+      </figure>
+      <figure>
+        <figcaption><span class="tag good">Soft</span> stick gives with the ring</figcaption>
+        <canvas width="800" height="600" data-scene="soft" aria-label="Animation: the stick moves back with the ring and it stays on; the force graph shows a lower, longer curve"></canvas>
+      </figure>
+    </div>
+  </section>
+
+  <section class="two" aria-label="Checklists">
+    <div class="box">
+      <h3>Before the pass</h3>
+      <ul>
+        <li>Take a quick look around while the ring is far away.</li>
+        <li>Turn toward the passer and call for it.</li>
+        <li>Put your stick on the ice as a target.</li>
+        <li>Watch the passer's stick to see where it's going.</li>
+        <li>Then keep your eyes on the ring all the way into your stick.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>When chopping is OK</h3>
+      <ul>
+        <li>The ring is sitting still.</li>
+        <li>The ring is bouncing or rolling; a short chop pins it flat.</li>
+        <li>A scramble near the net with no room to reach.</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="note">Ring and stick sizes come from Ringette Canada's rule book: hole 10.7–11.3 cm, rim 2.5–2.9 cm high, stick 2.7–3.5 cm wide. The tips come from Ringette Canada and Finnish federation coaching material, plus catching research from other sports. Tap any animation to replay it.</p>
+</main>
+
+<script>
+(() => {
+  const W = 400, H = 300, FPS = 25, HOLD = 38;
+  const K = 8, OD = 16.5 * K, ID = 11 * K, RH = 2.7 * K, WALL = (OD - ID) / 2, TIPT = 2 * K;
+  const ease = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+  const root = document.documentElement;
+  let C = {};
+  const readColors = () => {
+    const s = getComputedStyle(root), g = n => s.getPropertyValue(n).trim();
+    C = { bg: g('--canvas'), ink: g('--ink'), muted: g('--muted'), rule: g('--rule'), ring: g('--ring'),
+          soft: g('--ring-soft'), stick: g('--stick'), good: g('--good'), bad: g('--bad') };
+  };
+  readColors();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
+  new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const DISPLAY = '"Barlow Condensed", "Arial Narrow", Arial, sans-serif';
+  const BODY = '"Source Sans 3", "Segoe UI", Arial, sans-serif';
+
+  function rr(ctx, x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fill();
+  }
+  function ground(ctx, G) {
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(0, G + 1.5); ctx.lineTo(W, G + 1.5); ctx.stroke();
+  }
+  function sideRing(ctx, cx, base, squash = 1) {
+    const h = RH * squash, x0 = cx - OD / 2;
+    ctx.fillStyle = C.soft; rr(ctx, x0, base - h, OD, h, 6);
+    ctx.fillStyle = C.ring; rr(ctx, x0, base - h, WALL, h, 6); rr(ctx, x0 + OD - WALL, base - h, WALL, h, 6);
+  }
+  function sideStick(ctx, tipx, tipBottom, deg) {
+    const a = deg * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), nx = -uy, ny = ux, L = 330, half = TIPT / 2;
+    const cx = tipx, cy = tipBottom - Math.abs(half * ny);
+    const p1 = [cx + nx * half, cy + ny * half], p2 = [cx - nx * half, cy - ny * half];
+    ctx.fillStyle = C.stick; ctx.beginPath();
+    ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.lineTo(p2[0] + ux * L, p2[1] + uy * L); ctx.lineTo(p1[0] + ux * L, p1[1] + uy * L);
+    ctx.closePath(); ctx.fill();
+  }
+  function verdict(ctx, text, color) {
+    ctx.font = `700 26px ${DISPLAY}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = color; ctx.fillText(text, W / 2, 16);
+  }
+  function note(ctx, text, x, y, color, align = 'left') {
+    ctx.font = `600 14px ${BODY}`; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = color; ctx.fillText(text, x, y);
+  }
+
+  // ---------- Tip 1 ----------
+  const G1 = 225, TX = 230, V = 5;
+  const spear = f => ctx => {
+    ground(ctx, G1);
+    const HOV = RH + 9, dropAt = TX - 34, contact = TX + (ID / 2 - TIPT / 2);
+    let cx = -20 + V * f, tipb = G1 - HOV, tipx = TX, caught = false;
+    if (cx >= dropAt) tipb = G1 - HOV + HOV * ease((cx - dropAt) / 18);
+    if (cx >= contact) { const give = 40 * (1 - Math.exp(-(cx - contact) / 25)); cx = contact + give; tipx = TX + give; caught = true; }
+    sideRing(ctx, cx, G1); sideStick(ctx, tipx, tipb, 28);
+    if (f < 34) note(ctx, 'rim 2.5–2.9 cm high', 16, G1 - 34, C.muted);
+    if (caught && f > (contact + 20) / V + 12) verdict(ctx, '✓ In the hole', C.good);
+  };
+  const chop = f => ctx => {
+    ground(ctx, G1);
+    const hitCx = TX + ID / 2 + WALL / 2, tHit = (hitCx + 20) / V, swing = 7, top = G1 - 170;
+    let cx = -20 + V * f, base = G1, squash = 1, tipb = top;
+    if (f >= tHit - swing && f < tHit) { const p = (f - (tHit - swing)) / swing; tipb = top + (G1 - RH - top) * p * p; }
+    else if (f >= tHit) {
+      const dt = f - tHit; tipb = G1 - RH;
+      if (dt < 3) { squash = 0.55; cx = hitCx; }
+      else { const t = dt - 3; cx = hitCx + 6.5 * t; base = G1 - Math.max(0, 9 * t - 0.45 * t * t); tipb = G1; }
+    }
+    sideRing(ctx, cx, base, squash); sideStick(ctx, TX, tipb, 62);
+    if (f >= tHit && f - tHit < 10) note(ctx, 'hits the rim', TX - 40, G1 - 60, C.bad, 'right');
+    if (f >= tHit + 9) verdict(ctx, '✗ Ring springs away', C.bad);
+  };
+
+  // ---------- Tip 2 (top view, 5 px per cm) ----------
+  const RY = 118, RO = 16.5 * 5 / 2, RI = 11 * 5 / 2, TW = 15, PX = 200, PY = 262, HX = 214, HY = 257;
+  function topBase(ctx) {
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 2; ctx.setLineDash([7, 7]);
+    ctx.beginPath(); ctx.moveTo(0, RY); ctx.lineTo(W, RY); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = C.muted; ctx.beginPath(); ctx.ellipse(PX, PY, 24, 15, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(PX, PY, 10, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = C.muted; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(PX - 46, PY + 4); ctx.lineTo(PX - 46, PY - 26); ctx.stroke();
+    ctx.fillStyle = C.muted; ctx.beginPath(); ctx.moveTo(PX - 52, PY - 22); ctx.lineTo(PX - 40, PY - 22); ctx.lineTo(PX - 46, PY - 32); ctx.fill();
+    note(ctx, 'skating', PX - 46, PY + 22, C.muted, 'center');
+  }
+  function topRing(ctx, x) {
+    ctx.fillStyle = C.ring; ctx.beginPath(); ctx.arc(x, RY, RO, 0, Math.PI * 2); ctx.arc(x, RY, RI, 0, Math.PI * 2, true); ctx.fill('evenodd');
+  }
+  function topStick(ctx, tx, ty, down) {
+    ctx.strokeStyle = C.stick; ctx.lineWidth = 7; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(HX, HY); ctx.lineTo(tx, ty); ctx.stroke(); ctx.lineCap = 'butt';
+    ctx.beginPath(); ctx.arc(tx, ty, TW / 2, 0, Math.PI * 2);
+    if (down) { ctx.fillStyle = C.stick; ctx.fill(); } else { ctx.fillStyle = C.bg; ctx.fill(); ctx.lineWidth = 2.5; ctx.stroke(); }
+  }
+  const reach = f => ctx => {
+    topBase(ctx);
+    const rx = -45 + V * f, start = 39, rest = [190, 200], aim = [-45 + V * start, RY], p = ease((f - start) / 12);
+    const tx = rest[0] + (aim[0] - rest[0]) * p, ty = rest[1] + (aim[1] - rest[1]) * p;
+    topRing(ctx, rx); topStick(ctx, tx, ty, p >= 1);
+    if (p >= 1) note(ctx, 'misses behind', tx - 14, ty + 5, C.bad, 'right');
+    if (f >= start + 20) verdict(ctx, "✗ Too late, it's gone", C.bad);
+  };
+  const ahead = f => ctx => {
+    topBase(ctx);
+    const target = [240, RY], rest = [190, 200], p = ease((f - 4) / 14);
+    let tx = rest[0] + (target[0] - rest[0]) * p, ty = rest[1] + (target[1] - rest[1]) * p;
+    let rx = -45 + V * f, down = false;
+    const enter = target[0] - (RI - TW / 2) + 3, contact = target[0] + (RI - TW / 2);
+    if (rx >= enter) down = true;
+    if (rx >= contact) { const give = 30 * (1 - Math.exp(-(rx - contact) / 20)); rx = contact + give; tx = target[0] + give; }
+    topRing(ctx, rx); topStick(ctx, tx, ty, down);
+    if (f > 16 && f < 46) note(ctx, 'tip waits here', target[0], RY - 52, C.good, 'center');
+    if (f >= (contact + 45) / V + 10) verdict(ctx, '✓ Slides onto the tip', C.good);
+  };
+
+  // ---------- Tip 3 (side view + force graph) ----------
+  const G3 = 165, GX = 90, GY = 280, GW = 280, GH = 70, LEN3 = 90;
+  const contact3 = TX + (ID / 2 - TIPT / 2), tHit3 = (contact3 + 20) / V;
+  const fStiff = i => (i >= tHit3 && i - tHit3 < 2) ? 1 : 0;
+  const fSoft = i => (i >= tHit3 && i - tHit3 < 24) ? 0.32 * Math.exp(-(i - tHit3) / 6) : 0;
+  function graph(ctx, f, fn, color, label) {
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(GX, GY - GH); ctx.lineTo(GX, GY); ctx.lineTo(GX + GW, GY); ctx.stroke();
+    ctx.font = `600 13px ${BODY}`; ctx.fillStyle = C.muted; ctx.textAlign = 'right'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText('force on', GX - 10, GY - 34); ctx.fillText('the ring', GX - 10, GY - 18);
+    ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.beginPath();
+    for (let i = 0; i <= Math.min(f, LEN3); i++) {
+      const x = GX + (i / LEN3) * GW, y = GY - fn(i) * (GH - 4);
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+    if (f > tHit3 + 6) note(ctx, label, GX + 10, GY - GH + 6, color, 'left');
+  }
+  const stiff = f => ctx => {
+    ground(ctx, G3);
+    let cx = -20 + V * f, base = G3;
+    if (f >= tHit3) { const dt = f - tHit3; cx = contact3 - 4.5 * dt; base = G3 - Math.max(0, 11 * dt - 0.55 * dt * dt); }
+    sideRing(ctx, cx, base); sideStick(ctx, TX, G3, 40);
+    graph(ctx, f, fStiff, C.bad, 'short, hard hit');
+    if (f >= tHit3 + 10) verdict(ctx, '✗ Bounces off', C.bad);
+  };
+  const soft = f => ctx => {
+    ground(ctx, G3);
+    let cx = -20 + V * f, tipx = TX;
+    if (f >= tHit3) { const give = 45 * (1 - Math.exp(-(f - tHit3) / 6)); cx = contact3 + give; tipx = TX + give; }
+    sideRing(ctx, cx, G3); sideStick(ctx, tipx, G3, 40);
+    graph(ctx, f, fSoft, C.good, 'same stop, spread out');
+    if (f >= tHit3 + 12) verdict(ctx, '✓ Stays on', C.good);
+  };
+
+  const SCENES = { spear, chop, reach, ahead, stiff, soft };
+  const groups = [
+    { names: ['spear', 'chop'], len: 88 },
+    { names: ['reach', 'ahead'], len: 88 },
+    { names: ['stiff', 'soft'], len: LEN3 },
+  ];
+  const canvases = [...document.querySelectorAll('canvas[data-scene]')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  groups.forEach((g, i) => {
+    g.canvases = g.names.map(n => canvases.find(c => c.dataset.scene === n));
+    g.t = reduce ? g.len : 0;
+    g.playing = !reduce;
+    g.visible = true;
+    g.canvases.forEach(c => c.addEventListener('click', () => replay(i)));
+  });
+  function replay(i) { const g = groups[i]; g.t = 0; g.playing = true; }
+  document.querySelectorAll('[data-replay]').forEach(b => b.addEventListener('click', () => replay(+b.dataset.replay)));
+
+  let speed = 1;
+  const slow = document.getElementById('slowmo');
+  slow.addEventListener('click', () => {
+    const on = slow.getAttribute('aria-pressed') !== 'true';
+    slow.setAttribute('aria-pressed', String(on)); speed = on ? 0.35 : 1;
+  });
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const g = groups.find(g => g.canvases.includes(e.target)); if (g) g.visible = e.isIntersecting;
+    }), { threshold: 0.1 });
+    canvases.forEach(c => io.observe(c));
+  }
+
+  function draw(g) {
+    const f = Math.min(g.t, g.len);
+    g.canvases.forEach((c, k) => {
+      const ctx = c.getContext('2d');
+      ctx.setTransform(c.width / W, 0, 0, c.height / H, 0, 0);
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
+      SCENES[g.names[k]](f)(ctx);
+      ctx.restore();
+    });
+  }
+  let last = performance.now();
+  function tick(now) {
+    const dt = Math.min(0.1, (now - last) / 1000); last = now;
+    groups.forEach(g => {
+      if (g.playing && g.visible) {
+        g.t += dt * FPS * speed;
+        if (g.t > g.len + HOLD) { if (reduce) { g.playing = false; g.t = g.len; } else g.t = 0; }
+      }
+      draw(g);
+    });
+    requestAnimationFrame(tick);
+  }
+  groups.forEach(draw);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
