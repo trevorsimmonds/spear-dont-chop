@@ -3,116 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Spear, Don't Chop</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Three animated tips for stabbing the ring in ringette: spear low, put your tip where the ring is going, and use soft hands.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-  /* Layout: one narrow reading column; each lesson = cue text + a pair of to-scale animations (good vs bad) side by side, stacked on phones. */
+  /* Layout: black Ringette Today top bar, then one reading column; mini-game first, then lessons with paired to-scale animations. */
   :root {
-    --bg: #f3f6f9;
+    --bg: #f4f4f4;
     --surface: #ffffff;
-    --canvas: #e8f0f7;
-    --ink: #16202b;
-    --muted: #5a6777;
-    --rule: #d3dce6;
+    --canvas: #efefef;
+    --ink: #111111;
+    --muted: #666666;
+    --rule: #e0e0e0;
+    --brand: #000000;
+    --brand-ink: #ffffff;
+    --accent: #d6001c;
+    --btn-bg: #000000;
+    --btn-ink: #ffffff;
     --ring: #1f5fbf;
     --ring-soft: #c2d3ee;
-    --stick: #1c232c;
+    --stick: #111111;
     --good: #12804a;
-    --bad: #c03a2f;
-    --line-red: #c8463b;
-    --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-    --font-body: "Source Sans 3", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --bad: #d6001c;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0e141d; --surface: #162030; --canvas: #121c2a; --ink: #e5ecf4; --muted: #95a3b6;
-      --rule: #29364a; --ring: #5a95f2; --ring-soft: #2c4166; --stick: #dfe6ee; --good: #3cc37c;
-      --bad: #f2695c; --line-red: #e0645a; color-scheme: dark;
+      --bg: #000000; --surface: #141414; --canvas: #1f1f1f; --ink: #f2f2f2; --muted: #9a9a9a; --rule: #2a2a2a;
+      --accent: #ff2d40; --btn-bg: #ffffff; --btn-ink: #000000; --ring: #5a95f2; --ring-soft: #2c4166;
+      --stick: #f2f2f2; --good: #3cc37c; --bad: #ff2d40; color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0e141d; --surface: #162030; --canvas: #121c2a; --ink: #e5ecf4; --muted: #95a3b6;
-    --rule: #29364a; --ring: #5a95f2; --ring-soft: #2c4166; --stick: #dfe6ee; --good: #3cc37c;
-    --bad: #f2695c; --line-red: #e0645a; color-scheme: dark;
+    --bg: #000000; --surface: #141414; --canvas: #1f1f1f; --ink: #f2f2f2; --muted: #9a9a9a; --rule: #2a2a2a;
+    --accent: #ff2d40; --btn-bg: #ffffff; --btn-ink: #000000; --ring: #5a95f2; --ring-soft: #2c4166;
+    --stick: #f2f2f2; --good: #3cc37c; --bad: #ff2d40; color-scheme: dark;
   }
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 1.0625rem;
-    line-height: 1.55;
-  }
-  .page {
-    max-width: 920px;
-    margin: 0 auto;
-    padding-block: 28px 56px;
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 1.0625rem; line-height: 1.5; }
+  .topbar {
+    background: var(--brand); color: var(--brand-ink); border-bottom: 3px solid var(--accent);
+    padding-block: 12px;
     padding-left: max(16px, env(safe-area-inset-left, 0px));
     padding-right: max(16px, env(safe-area-inset-right, 0px));
-    display: grid;
-    gap: 44px;
   }
-  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: 0.01em; }
+  .topbar-inner { max-width: 920px; margin: 0 auto; display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+  .topbar-mark { width: 26px; height: 26px; flex: none; }
+  .page {
+    max-width: 920px; margin: 0 auto; padding-block: 24px 56px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid; gap: 40px;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 800; letter-spacing: -0.01em; }
   p { margin: 0; max-width: 62ch; }
 
-  /* Hero */
-  .hero { display: grid; gap: 14px; }
-  .eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
-  h1 { font-size: clamp(2.8rem, 9vw, 4.6rem); line-height: 0.95; text-transform: uppercase; }
-  h1 .no { color: var(--bad); }
+  .hero { display: grid; gap: 12px; }
+  .eyebrow, .step { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .eyebrow { color: var(--muted); }
+  .step { color: var(--accent); }
+  h1 { font-size: clamp(2.4rem, 8vw, 4rem); line-height: 1; text-transform: uppercase; }
+  h1 .no { color: var(--accent); }
   .rink-lines { display: flex; gap: 6px; }
   .rink-lines span { height: 5px; width: 54px; border-radius: 3px; background: var(--ring); }
-  .rink-lines span + span { background: var(--line-red); }
-  .lead { font-size: 1.15rem; }
+  .rink-lines span + span { background: var(--accent); }
+  .lead { font-size: 1.12rem; }
   .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
   button {
-    font: 600 0.95rem/1 var(--font-body);
-    color: var(--ink);
-    background: var(--surface);
-    border: 1.5px solid var(--rule);
-    border-radius: 999px;
-    padding: 9px 16px;
-    cursor: pointer;
+    font: 700 0.95rem/1 var(--font); color: var(--ink); background: var(--surface);
+    border: 1.5px solid var(--rule); border-radius: 999px; padding: 10px 16px; cursor: pointer;
   }
-  button:hover { border-color: var(--ring); }
-  button:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
-  button[aria-pressed="true"] { background: var(--ring); border-color: var(--ring); color: var(--surface); }
+  button:hover { border-color: var(--ink); }
+  button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
 
-  /* Room-for-error fact */
-  .fact {
-    display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 20px; align-items: center;
-    background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px;
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px; }
+
+  /* Mini-game */
+  .game { display: grid; gap: 12px; border-top: 4px solid var(--accent); }
+  .game-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px; }
+  .game-head > div:first-child { display: grid; gap: 4px; min-width: 0; }
+  .seg { flex: none; white-space: nowrap; display: inline-flex; border: 1.5px solid var(--rule); border-radius: 999px; padding: 3px; gap: 3px; }
+  .seg button { border: 0; padding: 9px 18px; }
+  .game canvas { cursor: pointer; touch-action: manipulation; }
+  .game-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+  .stab {
+    background: var(--accent); border-color: var(--accent); color: #ffffff;
+    font-size: 1.35rem; padding: 18px; text-transform: uppercase; letter-spacing: .06em;
+    touch-action: manipulation; user-select: none; -webkit-user-select: none;
   }
+  .stab:hover { border-color: var(--accent); filter: brightness(1.08); }
+  .stab:active { transform: scale(0.98); }
+  .start { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); padding: 18px 22px; }
+  .best { font-size: 0.95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .fact { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr); gap: 20px; align-items: center; }
   .fact svg { width: 100%; max-width: 170px; height: auto; }
-  .fact h2 { font-size: 1.5rem; text-transform: uppercase; }
-  .fact .num { font-family: var(--font-display); font-weight: 700; color: var(--ring); font-variant-numeric: tabular-nums; }
+  .fact h2 { font-size: 1.4rem; text-transform: uppercase; }
+  .fact .num { font-weight: 800; color: var(--ring); font-variant-numeric: tabular-nums; }
   .fact-text { display: grid; gap: 6px; min-width: 0; }
 
-  /* Lessons */
   .lesson { display: grid; gap: 14px; }
   .lesson-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px; }
   .lesson-head > div { display: grid; gap: 4px; min-width: 0; }
-  .step { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ring); }
-  h2 { font-size: clamp(1.9rem, 5.5vw, 2.5rem); line-height: 1; text-transform: uppercase; }
+  h2 { font-size: clamp(1.7rem, 5vw, 2.2rem); line-height: 1.05; text-transform: uppercase; }
   .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
   figcaption { display: flex; gap: 8px; align-items: baseline; font-size: 0.95rem; color: var(--muted); }
-  .tag { font: 700 0.85rem/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 8px; border-radius: 6px; color: var(--surface); flex: none; }
+  .tag { font: 800 0.78rem/1 var(--font); text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 8px; border-radius: 6px; color: #ffffff; flex: none; }
   .tag.good { background: var(--good); }
   .tag.bad { background: var(--bad); }
   canvas { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; height: auto; border-radius: 12px; background: var(--canvas); display: block; cursor: pointer; }
-  .cue { font-weight: 600; }
+  .cue { font-weight: 700; }
 
-  /* Checklists */
   .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .box { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
-  .box h3 { font-size: 1.35rem; text-transform: uppercase; }
+  .box { display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .box h3 { font-size: 1.2rem; text-transform: uppercase; }
   .box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
   .note { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
 
@@ -121,22 +130,51 @@
     .fact { grid-template-columns: minmax(0, 1fr); justify-items: start; }
     .fact svg { max-width: 150px; }
   }
+  @media (prefers-reduced-motion: reduce) { .stab:active { transform: none; } }
 </style>
 
 </head>
 <body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <svg class="topbar-mark" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="#ffffff" stroke-width="4.5"/></svg>
+    Spear, Don't Chop
+  </div>
+</div>
+
 <main class="page">
   <header class="hero">
     <div class="eyebrow">Ringette · stabbing the ring</div>
     <h1>Spear, <span class="no">don't chop.</span></h1>
     <div class="rink-lines" aria-hidden="true"><span></span><span></span></div>
-    <p class="lead">When a pass is coming, get your stick tip low and early in the ring's path and let the ring come to you. Three short animations show why. They're slowed down so you can see what happens, and the ring and stick are drawn to real size.</p>
+    <p class="lead">When a pass is coming, get your stick tip low and early in the ring's path and let the ring come to you. Play the game to feel why, then watch the three short animations. The ring and stick are drawn to real size.</p>
     <div class="controls">
       <button id="slowmo" type="button" aria-pressed="false">Slow motion</button>
     </div>
   </header>
 
-  <section class="fact" aria-labelledby="fact-h">
+
+  <section class="game card" aria-labelledby="g-h">
+    <div class="game-head">
+      <div>
+        <div class="step">Mini-game</div>
+        <h2 id="g-h">Stab It</h2>
+      </div>
+      <div class="seg" role="group" aria-label="Technique">
+        <button type="button" id="m-spear" aria-pressed="true">Spear</button>
+        <button type="button" id="m-chop" aria-pressed="false">Chop</button>
+      </div>
+    </div>
+    <p>Ten passes, each one faster. Hit <strong>Stab</strong>, tap the ice, or press the space bar to drop your stick into the hole. Play Spear first, then switch to Chop and see which is easier.</p>
+    <canvas id="game" width="800" height="600" aria-label="Stab It game. A ring slides across the ice; stab to drop your stick into its hole."></canvas>
+    <div class="game-controls">
+      <button type="button" id="stab" class="stab">Stab!</button>
+      <button type="button" id="start" class="start">Start</button>
+    </div>
+    <p class="best" id="best" aria-live="polite">Best so far: Spear –/10 · Chop –/10</p>
+  </section>
+
+  <section class="fact card" aria-labelledby="fact-h">
     <svg viewBox="0 0 200 200" role="img" aria-label="Top view of the ring with a stick tip in the hole, to scale">
       <circle cx="100" cy="100" r="82.5" fill="var(--ring)"/>
       <circle cx="100" cy="100" r="55" fill="var(--surface)"/>
@@ -214,7 +252,7 @@
   </section>
 
   <section class="two" aria-label="Checklists">
-    <div class="box">
+    <div class="box card">
       <h3>Before the pass</h3>
       <ul>
         <li>Take a quick look around while the ring is far away.</li>
@@ -224,7 +262,7 @@
         <li>Then keep your eyes on the ring all the way into your stick.</li>
       </ul>
     </div>
-    <div class="box">
+    <div class="box card">
       <h3>When chopping is OK</h3>
       <ul>
         <li>The ring is sitting still.</li>
@@ -253,8 +291,8 @@
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
   new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 
-  const DISPLAY = '"Barlow Condensed", "Arial Narrow", Arial, sans-serif';
-  const BODY = '"Source Sans 3", "Segoe UI", Arial, sans-serif';
+  const DISPLAY = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  const BODY = DISPLAY;
 
   function rr(ctx, x, y, w, h, r) {
     r = Math.min(r, w / 2, h / 2);
@@ -280,7 +318,7 @@
     ctx.closePath(); ctx.fill();
   }
   function verdict(ctx, text, color) {
-    ctx.font = `700 26px ${DISPLAY}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.font = `800 24px ${DISPLAY}`; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     ctx.fillStyle = color; ctx.fillText(text, W / 2, 16);
   }
   function note(ctx, text, x, y, color, align = 'left') {
@@ -447,6 +485,232 @@
     requestAnimationFrame(tick);
   }
   groups.forEach(draw);
+  requestAnimationFrame(tick);
+})();
+</script>
+<script>
+(() => {
+  // Stab It: to-scale side view (cutaway). 8 px = 1 cm. Ring hole 11 cm, rim 2.7 cm high, stick tip 2 cm thick.
+  const W = 400, H = 300, K = 8, OD = 16.5 * K, ID = 11 * K, RH = 2.7 * K, WALL = (OD - ID) / 2, TIPT = 2 * K;
+  const G = 222, TX = 250, ROUNDS = 10;
+  const MODES = {
+    spear: { start: G - (RH + 9), angle: 28, accel: 9000, v0: 500 },   // hovers just above the rim
+    chop:  { start: G - 165,      angle: 62, accel: 3300, v0: 0 },     // falls from above
+  };
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const stabBtn = document.getElementById('stab');
+  const startBtn = document.getElementById('start');
+  const bestEl = document.getElementById('best');
+  const modeBtns = { spear: document.getElementById('m-spear'), chop: document.getElementById('m-chop') };
+  const root = document.documentElement;
+  const FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  let C = {};
+  const readColors = () => {
+    const s = getComputedStyle(root), g = n => s.getPropertyValue(n).trim();
+    C = { bg: g('--canvas'), ink: g('--ink'), muted: g('--muted'), rule: g('--rule'), ring: g('--ring'),
+          soft: g('--ring-soft'), stick: g('--stick'), good: g('--good'), bad: g('--bad'), accent: g('--accent') };
+  };
+  readColors();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors);
+  new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+  const best = { spear: null, chop: null };
+  try { const b = JSON.parse(localStorage.getItem('stabit-best') || '{}'); Object.assign(best, b); } catch (e) {}
+  const showBest = () => {
+    const f = v => (v == null ? '–' : v);
+    bestEl.textContent = `Best so far: Spear ${f(best.spear)}/10 · Chop ${f(best.chop)}/10`;
+  };
+  showBest();
+
+  let mode = 'spear', phase = 'idle', round = 0, score = 0, streak = 0, topStreak = 0;
+  let ring, tip, msg, msgColor, msgT, nextAt;
+
+  function newRing() {
+    ring = { x: -OD, v: 150 + round * 24, v0: 150 + round * 24, base: G, vy: 0, squash: 1, state: 'moving', hold: 0 };
+    tip = { x: TX, y: MODES[mode].start, vy: 0, state: 'ready', inside: false };
+    msg = ''; nextAt = 0;
+  }
+  function setMode(m) {
+    if (phase === 'playing') return;
+    mode = m;
+    for (const k in modeBtns) modeBtns[k].setAttribute('aria-pressed', String(k === m));
+    phase = 'idle'; newRing();
+  }
+  modeBtns.spear.addEventListener('click', () => setMode('spear'));
+  modeBtns.chop.addEventListener('click', () => setMode('chop'));
+
+  function start() {
+    phase = 'playing'; round = 0; score = 0; streak = 0; topStreak = 0;
+    startBtn.textContent = 'Restart';
+    newRing();
+  }
+  startBtn.addEventListener('click', start);
+
+  function stab() {
+    if (phase !== 'playing') { start(); return; }
+    if (tip.state !== 'ready' || ring.state !== 'moving') return;
+    tip.state = 'falling'; tip.vy = MODES[mode].v0;
+  }
+  stabBtn.addEventListener('pointerdown', e => { e.preventDefault(); stab(); });
+  stabBtn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stab(); } });
+  canvas.addEventListener('pointerdown', e => { e.preventDefault(); stab(); });
+  document.addEventListener('keydown', e => {
+    if (e.key !== ' ' || phase !== 'playing') return;
+    const t = e.target;
+    if (t && (t.tagName === 'BUTTON' || t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    e.preventDefault(); stab();
+  });
+
+  function say(text, color) { msg = text; msgColor = color; msgT = 0; }
+  function resolve(ok, text) {
+    if (ok) { score++; streak++; topStreak = Math.max(topStreak, streak); say(text, C.good); }
+    else { streak = 0; say(text, C.bad); }
+    nextAt = 1.15;
+  }
+
+  function update(dt) {
+    if (phase !== 'playing') return;
+    msgT += dt;
+    // ring motion
+    if (ring.state === 'moving' || ring.state === 'caught' || ring.state === 'pushed' || ring.state === 'blocked') {
+      if (ring.state === 'caught' || ring.state === 'pushed') ring.v *= Math.exp(-dt * 5);
+      ring.x += ring.v * dt;
+    } else if (ring.state === 'rim') {
+      ring.hold += dt;
+      if (ring.hold < 0.08) ring.squash = 0.55;
+      else { ring.squash = 1; ring.x += ring.v * 1.3 * dt; ring.vy -= 900 * dt; ring.base = Math.min(G, ring.base - ring.vy * dt); }
+    }
+    const L = ring.x - OD / 2, R = ring.x + OD / 2;
+    const tL = tip.x - TIPT / 2, tR = tip.x + TIPT / 2;
+
+    // tip falling
+    if (tip.state === 'falling') {
+      const before = tip.y;
+      tip.vy += MODES[mode].accel * dt; tip.y += tip.vy * dt;
+      const rimTop = G - RH;
+      if (before < rimTop && tip.y >= rimTop) {
+        const overlapsLeftWall = tR > L && tL < L + WALL;
+        const overlapsRightWall = tR > R - WALL && tL < R;
+        if (overlapsLeftWall || overlapsRightWall) {
+          tip.y = rimTop; tip.state = 'stopped';
+          ring.state = 'rim'; ring.vy = 240; ring.hold = 0;
+          resolve(false, 'Hit the rim!');
+          return;
+        }
+        tip.inside = tL > L + WALL && tR < R - WALL;
+      }
+      if (tip.y >= G) {
+        tip.y = G; tip.state = 'down';
+        if (tip.inside) {
+          const off = Math.abs(tip.x - ring.x);
+          ring.state = 'caught';
+          resolve(true, off < 14 ? 'Perfect!' : 'In!');
+        } else if (R < tL) {
+          ring.state = 'blocked';
+          resolve(false, 'Too early!');
+        } else {
+          resolve(false, 'Too late!');
+        }
+      }
+    }
+    // ring meets a planted stick
+    if (ring.state === 'caught' && L + WALL >= tL - 0.5) {
+      // stick gives with the ring (soft hands)
+      tip.x = Math.max(tip.x, L + WALL + TIPT / 2);
+    }
+    if (ring.state === 'blocked' && R >= tL) { ring.state = 'pushed'; ring.v = -ring.v * 0.35; }
+    // never stabbed: ring passed the stick
+    if (tip.state === 'ready' && ring.state === 'moving' && L > tR + 4) {
+      tip.state = 'stopped'; resolve(false, 'Missed! Stab sooner');
+    }
+    // next ring / end of round
+    if (nextAt > 0) {
+      nextAt -= dt;
+      if (nextAt <= 0) {
+        round++;
+        if (round >= ROUNDS) finish(); else newRing();
+      }
+    }
+  }
+
+  function finish() {
+    phase = 'done';
+    startBtn.textContent = 'Play again';
+    if (best[mode] == null || score > best[mode]) best[mode] = score;
+    try { localStorage.setItem('stabit-best', JSON.stringify(best)); } catch (e) {}
+    showBest();
+  }
+
+  // ---------- drawing ----------
+  function rr(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fill();
+  }
+  function drawRing() {
+    const h = RH * ring.squash, x0 = ring.x - OD / 2;
+    ctx.fillStyle = C.soft; rr(x0, ring.base - h, OD, h, 6);
+    ctx.fillStyle = C.ring; rr(x0, ring.base - h, WALL, h, 6); rr(x0 + OD - WALL, ring.base - h, WALL, h, 6);
+  }
+  function drawStick() {
+    const a = MODES[mode].angle * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a), nx = -uy, ny = ux, Ls = 360, half = TIPT / 2;
+    const cy = tip.y - Math.abs(half * ny), cx = tip.x;
+    const p1 = [cx + nx * half, cy + ny * half], p2 = [cx - nx * half, cy - ny * half];
+    ctx.fillStyle = C.stick; ctx.beginPath();
+    ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.lineTo(p2[0] + ux * Ls, p2[1] + uy * Ls); ctx.lineTo(p1[0] + ux * Ls, p1[1] + uy * Ls);
+    ctx.closePath(); ctx.fill();
+  }
+  function text(t, x, y, size, color, align = 'center', weight = 800) {
+    ctx.font = `${weight} ${size}px ${FONT}`; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = color; ctx.fillText(t, x, y);
+  }
+  function draw() {
+    ctx.setTransform(canvas.width / W, 0, 0, canvas.height / H, 0, 0);
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+    ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.clip();
+    // ice
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, G + 1.5); ctx.lineTo(W, G + 1.5); ctx.stroke();
+    drawRing(); drawStick();
+    ctx.restore();
+
+    // HUD
+    if (phase === 'playing') {
+      text(`Pass ${Math.min(round + 1, ROUNDS)}/${ROUNDS}`, 14, 26, 15, C.muted, 'left', 700);
+      text(`${score} in`, W - 14, 26, 15, C.ink, 'right', 800);
+      if (streak >= 2) text(`🔥 ${streak} in a row`, W - 14, 46, 13, C.accent, 'right', 700);
+      const pct = Math.round((ring.v0 / K) / 100 * 10) / 10;
+      text(`ring speed ${pct.toFixed(1)} m/s (slowed down)`, 14, H - 12, 12, C.muted, 'left', 600);
+      if (msg) {
+        const s = 1 + Math.max(0, 0.25 - msgT) * 1.2;
+        ctx.save(); ctx.translate(W / 2, 92); ctx.scale(s, s);
+        text(msg, 0, 0, 30, msgColor); ctx.restore();
+      }
+    } else if (phase === 'idle') {
+      text(mode === 'spear' ? 'Spear mode' : 'Chop mode', W / 2, 62, 26, C.ink);
+      text(mode === 'spear' ? 'Your tip waits just above the rim.' : 'Your stick comes down from above.', W / 2, 90, 15, C.muted, 'center', 600);
+      text('Stab when the hole is under your stick.', W / 2, 112, 15, C.muted, 'center', 600);
+      text('Tap Start to play', W / 2, 150, 17, C.accent, 'center', 800);
+    } else {
+      const other = mode === 'spear' ? 'chop' : 'spear';
+      text(`${score}/10`, W / 2, 80, 54, score >= 7 ? C.good : C.ink);
+      text(`${mode === 'spear' ? 'Spear' : 'Chop'} mode · best streak ${topStreak}`, W / 2, 108, 15, C.muted, 'center', 700);
+      const line = best[other] == null
+        ? `Now try ${other === 'chop' ? 'Chop' : 'Spear'} mode and compare.`
+        : (mode === 'chop' && best.spear != null && best.spear > score
+            ? 'Harder, right? That\'s why you spear.'
+            : (mode === 'spear' && best.chop != null && score > best.chop ? 'Spear beats chop!' : 'Can you beat it?'));
+      text(line, W / 2, 140, 17, C.accent, 'center', 800);
+    }
+  }
+
+  let last = performance.now();
+  newRing();
+  function tick(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    update(dt); draw();
+    requestAnimationFrame(tick);
+  }
   requestAnimationFrame(tick);
 })();
 </script>
