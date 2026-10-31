@@ -125,8 +125,18 @@
   .box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
   .note { font-size: 0.9rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
 
+  .rule { display: grid; gap: 12px; }
+  .rule-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .rule-card { display: grid; gap: 8px; align-content: start; min-width: 0; border-top-width: 4px; }
+  .rule-card.good { border-top-color: var(--good); }
+  .rule-card.bad { border-top-color: var(--bad); }
+  .rule-card .tag { justify-self: start; }
+  .rule-card h3 { font-size: 1.25rem; }
+  .rule-card ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+  .rule-foot { font-weight: 700; color: var(--good); }
+  .checklist .box { max-width: 560px; }
   @media (max-width: 640px) {
-    .pair, .two { grid-template-columns: minmax(0, 1fr); }
+    .rule-grid, .pair, .two { grid-template-columns: minmax(0, 1fr); }
     .fact { grid-template-columns: minmax(0, 1fr); justify-items: start; }
     .fact svg { max-width: 150px; }
   }
@@ -147,32 +157,14 @@
     <div class="eyebrow">Ringette · stabbing the ring</div>
     <h1>Spear, <span class="no">don't chop.</span></h1>
     <div class="rink-lines" aria-hidden="true"><span></span><span></span></div>
-    <p class="lead">When a pass is coming, get your stick tip low and early in the ring's path and let the ring come to you. Play the game to feel why, then watch the three short animations. The ring and stick are drawn to real size.</p>
+    <p class="lead">When a pass is coming, get your stick tip low and early in the ring's path and let the ring come to you. Learn when to spear and when to chop, try it in the game, then watch three short animations. The ring and stick are drawn to real size.</p>
     <div class="controls">
       <button id="slowmo" type="button" aria-pressed="false">Slow motion</button>
     </div>
   </header>
 
 
-  <section class="game card" aria-labelledby="g-h">
-    <div class="game-head">
-      <div>
-        <div class="step">Mini-game</div>
-        <h2 id="g-h">Stab It</h2>
-      </div>
-      <div class="seg" role="group" aria-label="Technique">
-        <button type="button" id="m-spear" aria-pressed="true">Spear</button>
-        <button type="button" id="m-chop" aria-pressed="false">Chop</button>
-      </div>
-    </div>
-    <p>Ten passes, each one faster. Hit <strong>Stab</strong>, tap the ice, or press the space bar to drop your stick into the hole. Play Spear first, then switch to Chop and see which is easier.</p>
-    <canvas id="game" width="800" height="600" aria-label="Stab It game. A ring slides across the ice; stab to drop your stick into its hole."></canvas>
-    <div class="game-controls">
-      <button type="button" id="stab" class="stab">Stab!</button>
-      <button type="button" id="start" class="start">Start</button>
-    </div>
-    <p class="best" id="best" aria-live="polite">Best so far: Spear –/10 · Chop –/10</p>
-  </section>
+
 
   <section class="fact card" aria-labelledby="fact-h">
     <svg viewBox="0 0 200 200" role="img" aria-label="Top view of the ring with a stick tip in the hole, to scale">
@@ -186,6 +178,48 @@
       <h2 id="fact-h">Your room for error</h2>
       <p>The hole is about <span class="num">11 cm</span> across. Your stick tip is about <span class="num">3 cm</span> wide. That leaves roughly <span class="num">4 cm</span> on each side, shown by the green dashes. It's a small target, so it's easier to have your tip already waiting in the ring's path than to hit it at the last second.</p>
     </div>
+  </section>
+
+  <section class="rule" aria-labelledby="r-h">
+    <div class="step">Know this first</div>
+    <h2 id="r-h">Spear or chop?</h2>
+    <div class="rule-grid">
+      <div class="card rule-card good">
+        <span class="tag good">Spear</span>
+        <h3>The ring is moving</h3>
+        <p>Passes, loose rings, rings sliding across the ice. Get your tip low and in the ring's path early, just above the rim, and let the ring come to you.</p>
+        <p class="rule-foot">This is almost every time.</p>
+      </div>
+      <div class="card rule-card bad">
+        <span class="tag bad">Chop</span>
+        <h3>The ring isn't sliding</h3>
+        <ul>
+          <li>It's sitting still.</li>
+          <li>It's bouncing or rolling. A short chop pins it flat.</li>
+          <li>It's a scramble near the net with no room to reach.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="game card" aria-labelledby="g-h">
+    <div class="game-head">
+      <div>
+        <div class="step">Mini-game</div>
+        <h2 id="g-h">Stab It</h2>
+      </div>
+      <div class="seg" role="group" aria-label="Technique">
+        <button type="button" id="m-spear" aria-pressed="true">Spear</button>
+        <button type="button" id="m-chop" aria-pressed="false">Chop</button>
+      </div>
+    </div>
+    <p>Ten passes, each one faster. Hit <strong>Stab</strong>, tap the ice, or press the space bar to drop your stick into the hole. Play Spear first, then switch to Chop and feel why chopping a moving ring is so much harder.</p>
+    <canvas id="game" width="800" height="600" aria-label="Stab It game. A ring slides across the ice; stab to drop your stick into its hole."></canvas>
+    <div class="game-controls">
+      <button type="button" id="stab" class="stab">Stab!</button>
+      <button type="button" id="start" class="start">Start</button>
+    </div>
+    <p class="best" id="best" aria-live="polite">Best so far: Spear –/10 · Chop –/10</p>
   </section>
 
   <section class="lesson" aria-labelledby="l1">
@@ -251,7 +285,7 @@
     </div>
   </section>
 
-  <section class="two" aria-label="Checklists">
+  <section class="checklist" aria-label="Checklist">
     <div class="box card">
       <h3>Before the pass</h3>
       <ul>
@@ -260,14 +294,6 @@
         <li>Put your stick on the ice as a target.</li>
         <li>Watch the passer's stick to see where it's going.</li>
         <li>Then keep your eyes on the ring all the way into your stick.</li>
-      </ul>
-    </div>
-    <div class="box card">
-      <h3>When chopping is OK</h3>
-      <ul>
-        <li>The ring is sitting still.</li>
-        <li>The ring is bouncing or rolling; a short chop pins it flat.</li>
-        <li>A scramble near the net with no room to reach.</li>
       </ul>
     </div>
   </section>
